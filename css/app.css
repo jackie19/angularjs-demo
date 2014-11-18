@@ -1,0 +1,50 @@
+html{ background:#eeedf2; }
+body, ul, li, p, dl, dd, dt, input,h1, h2, h3, h4, h5, menu{ padding:0; margin:0; }
+body{ color:#333; }
+body, input, textarea{ /*font-family:"\5B8B\4F53";*/ font-size:12px; font-family:'lucida Grande', Verdana; }
+body, html{ height:100%; overflow:hidden; -webkit-tap-highlight-color:rgba(0, 0, 0, 0);-webkit-user-select:none; }
+html{ }
+ul, li{ list-style:none; }
+a{ color:#268abf; cursor:pointer; }
+a:hover{ color:#bababa; }
+h3, h2, h4{ font-size:12px; }
+img{ border:none; }
+a, a:hover, s{ text-decoration:none; }
+s, em, i{ font-style:normal; }
+input::-ms-clear{ display:none; }
+:focus{ outline:none; }
+.clear{ clear:both; }
+.fl{ float:left; }
+.fr{ float:right; }
+.oh{ overflow:hidden;}
+.tc{ text-align:center;}
+.tl{ text-align:left;}
+
+.view-animate-container { }
+.view-animate{
+    /*3d加速*/
+    /*-webkit-transform: translate3d(0, 0, 0);*/
+    /*transform: translate3d(0, 0, 0);*/
+    /*修复闪烁*/
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    /*-webkit-perspective: 1000;*/
+    /*perspective: 1000;*/
+    }
+.view-animate.ng-enter, .view-animate.ng-leave {
+    -webkit-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) .5s;
+    transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) .5s;
+}
+
+.view-animate.ng-enter {
+    /*left:100%;*/
+    -webkit-transform: translateX(100%);
+}
+.view-animate.ng-enter.ng-enter-active {
+    -webkit-transform: translateX(0%);
+    /*left:0;*/
+}
+.view-animate.ng-leave.ng-leave-active {
+    /*left:-100%;*/
+    -webkit-transform: translateX(-100%);
+}
