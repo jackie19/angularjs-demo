@@ -13,19 +13,18 @@
     <script type="text/javascript">
         debug = true; //fixme
         (function () {
-            var asset = 'http://asset.dongxizhijiao.com/',
+            var asset = '',
                     indexFile = (location.pathname.match(/\/(index[^\.]*\.html)/) || ['', ''])[1],
                     rUrl = /(#!\/|api|guide|misc|tutorial|error|index[^\.]*\.html).*$/,
                     baseUrl = location.href.replace(rUrl, indexFile),
                     headEl = document.getElementsByTagName('head')[0],
                     sync = true;
             addTag('base', {href: baseUrl});
-//            addTag('script', {src: 'bower_components/jQuery/dist/jquery.min.js' }, sync);
             addTag('script', {src: asset+'bower_components/angular/angular.min.js' }, sync);
             addTag('script', {src: asset+'bower_components/angular-sanitize/angular-sanitize.min.js' }, sync);
             addTag('script', {src: asset+'bower_components/angular-animate/angular-animate.min.js' }, sync);
             addTag('script', {src: asset+'bower_components/angular-ui-router/release/angular-ui-router.min.js' }, sync);
-            addTag('script', {src: asset+'bower_components/angular/angular-image-lazy.js' }, sync);
+            addTag('script', {src: asset+'bower_components/angular-image-lazy/angular-image-lazy.js' }, sync);
             addTag('script', {src: asset+'js/controllers.js' }, sync);
             addTag('script', {src: asset+'js/directives.js' }, sync);
             addTag('script', {src: asset+'js/services.js' }, sync);
