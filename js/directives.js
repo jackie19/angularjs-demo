@@ -8,7 +8,7 @@ angular.module('storeDirectives',[]).directive('toast', function ($timeout, $roo
         replace: true,
         transclude: true,
         template: '<div class="toast"  ng-show="toastIsShow">' +
-            '<i class="ico" ng-class="{success:toastIsSuccess,error:!toastIsSuccess}"></i><span class="toast_text" ng-transclude></span>' +
+            '<i class="ico" ng-class="{success:toastIsSuccess,error:!toastIsSuccess}"></i><span class="toast_text">{{text}}</span>' +
             '</div>',
         link: function (scope, element, attrs) {
             $rootScope.$watch(function () {

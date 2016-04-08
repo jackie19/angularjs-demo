@@ -9,7 +9,6 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1,user-scalable=no"/>
     <link rel="stylesheet" href="css/app.css"/>
-    <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
     <script type="text/javascript">
         debug = true; //fixme
         (function () {
@@ -18,18 +17,30 @@
                     rUrl = /(#!\/|api|guide|misc|tutorial|error|index[^\.]*\.html).*$/,
                     baseUrl = location.href.replace(rUrl, indexFile),
                     headEl = document.getElementsByTagName('head')[0],
-                    sync = true;
+                    sync = true,
+                    debug = false;
             addTag('base', {href: baseUrl});
-            addTag('script', {src: asset+'bower_components/angular/angular.min.js' }, sync);
-            addTag('script', {src: asset+'bower_components/angular-sanitize/angular-sanitize.min.js' }, sync);
-            addTag('script', {src: asset+'bower_components/angular-animate/angular-animate.min.js' }, sync);
-            addTag('script', {src: asset+'bower_components/angular-ui-router/release/angular-ui-router.min.js' }, sync);
-            addTag('script', {src: asset+'bower_components/angular-image-lazy/angular-image-lazy.js' }, sync);
-            addTag('script', {src: asset+'js/controllers.js' }, sync);
-            addTag('script', {src: asset+'js/directives.js' }, sync);
-            addTag('script', {src: asset+'js/services.js' }, sync);
-            addTag('script', {src: asset+'js/filters.js' }, sync);
-            addTag('script', {src: asset+'js/app.js' }, sync);
+
+
+            if (debug) {
+                addTag('script', {src: asset + 'bower_components/angular/angular.min.js'}, sync);
+                addTag('script', {src: asset + 'bower_components/angular-sanitize/angular-sanitize.min.js'}, sync);
+                addTag('script', {src: asset + 'bower_components/angular-animate/angular-animate.min.js'}, sync);
+                addTag('script', {src: asset + 'bower_components/angular-ui-router/release/angular-ui-router.min.js'}, sync);
+                addTag('script', {src: asset + 'bower_components/angular-image-lazy/angular-image-lazy.js'}, sync);
+                addTag('script', {src: asset + 'js/controllers.js'}, sync);
+                addTag('script', {src: asset + 'js/directives.js'}, sync);
+                addTag('script', {src: asset + 'js/services.js'}, sync);
+                addTag('script', {src: asset + 'js/filters.js'}, sync);
+                addTag('script', {src: asset + 'js/app.js'}, sync);
+            } else {
+                addTag('script', {src: asset + 'dist/lib.js'}, sync);
+                addTag('script', {src: asset + 'js/controllers.js'}, sync);
+                addTag('script', {src: asset + 'js/directives.js'}, sync);
+                addTag('script', {src: asset + 'js/services.js'}, sync);
+                addTag('script', {src: asset + 'js/filters.js'}, sync);
+                addTag('script', {src: asset + 'js/app.js'}, sync);
+            }
 
             function addTag(name, attributes, sync) {
                 var el = document.createElement(name),
@@ -45,12 +56,12 @@
             function outerHTML(node) {
                 // if IE, Chrome take the internal method otherwise build one
                 return node.outerHTML || (function (n) {
-                    var div = document.createElement('div'), h;
-                    div.appendChild(n);
-                    h = div.innerHTML;
-                    div = null;
-                    return h;
-                })(node);
+                            var div = document.createElement('div'), h;
+                            div.appendChild(n);
+                            h = div.innerHTML;
+                            div = null;
+                            return h;
+                        })(node);
             }
 
         })();
@@ -59,17 +70,17 @@
 
 </head>
 <body ng-controller="main">
-<div class="mask" ng-show="isloading">
-    <div class="tc">
-        <img src="images/loading.gif" alt=""/>
-    </div>
-</div>
+
 <div class="view-animate-container wrap">
     <div class=" view-animate wrap" ui-view></div>
 </div>
 
-<toast>{{text}}</toast>
+<toast></toast>
 
+<div class="mask" ng-show="isloading">
+    <div class="tc tc-xy">
+        <img src="images/loading.gif" alt=""/>
+    </div>
+</div>
 </body>
-<!--<script src="http://192.168.0.127:8080/target/target-script-min.js#anonymous"></script>-->
 </html>

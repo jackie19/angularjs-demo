@@ -2,7 +2,7 @@
  * Created by cgx on 2014/11/3.
  */
 
-var myApp = angular.module('myApp', [ 'ui.router','ngAnimate', 'storeCtrls', 'storeFilters', 'storeServices', 'storeDirectives' ]);
+var myApp = angular.module('myApp', ['ui.router', 'ngAnimate', 'storeCtrls', 'storeFilters', 'storeServices', 'storeDirectives']);
 myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
     // Intercept POST requests, convert to standard form encoding
     $httpProvider.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
@@ -16,35 +16,68 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
         return result.join("&");
     });
 
-    $urlRouterProvider.otherwise('/index');
+    $urlRouterProvider.otherwise('/app/home');
     $stateProvider
-        .state('index', {
-            url: '/index',
+        .state('app', {
+            url: '/app',
             views: {
                 '': {
-                    templateUrl: 'tpl/index.html'
+                    templateUrl: 'tpl/index.html',
+                    resolve: {
+                        deps: function ($q, $rootScope, $timeout) {
+                            var defer = $q.defer()
+                            $timeout(function () {
+                                $rootScope.isloading = false
+                                return defer.resolve(true)
+                            }, 1500)
+                            return defer.promise
+                        }
+                    }
                 },
-                'main@index':{
-                    templateUrl:'tpl/main.html'
+                'main@app': {
+                    templateUrl: 'tpl/main.html'
                 },
-                'menu@index': {
-                    templateUrl: 'tpl/menu.html'
-                },
-                'header@index': {
+                'header@app': {
                     templateUrl: 'tpl/header.html'
                 }
             }
-        }).state('index.test', {
-            url: '/test',
+        })
+        .state('app.home', {
+            url: '/home',
             views: {
-                'main@index': {
-                    templateUrl: '',
-                    controller: ''
+                'main@app': {
+                    templateUrl: 'tpl/home.html',
+                    controller: 'HomeCtrl'
+                }
+            }
+        })
+        .state('app.shop', {
+            url: '/shop/:id',
+            views: {
+                'main@app': {
+                    templateUrl: 'tpl/shop.html',
+                    controller: 'ShopCtrl'
                 }
             }
         })
 });
 
 myApp.controller('main', ['$location', '$window', '$rootScope', function ($location, $window, $rootScope) {
+    $rootScope.isloading = true
 
+    var url_historys = []
+
+    
+    $rootScope.$on('$stateChangeSuccess', function (event, newUrl, oldUrl) {
+
+        if (url_historys.indexOf(newUrl) > -1) {
+            //todo go back
+            
+        } else {
+            url_historys.push(newUrl)
+        }
+
+        console.info(url_historys)
+
+    })
 }]);
